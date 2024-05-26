@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Paciente</title>
+</head>
+<body>
+<h1>Adicionar Novo Paciente</h1>
+<form method="post" th:action="@{/pacientes/save}">
+    <label>Nome: <input type="text" name="nome" /></label><br>
+    <label>Telefone: <input type="text" name="telefone"/></label><br>
+    <label>Data Nasc.: <input type="date" name="dataNascimento" /></label><br>
+    <label>Plano: <input type="text" name="plano" /></label><br>
+    <button type="submit">Salvar</button>
+</form>
+<h1>Listar Pacientes</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Data Nasc.</th>
+        <th>Plano</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pacientes : ${pacientes}">
+        <td th:text="${pacientes.id}"></td>
+        <td th:text="${pacientes.nome}"></td>
+        <td th:text="${pacientes.telefone}"></td>
+        <td th:text="${pacientes.dataNascimento}"></td>
+        <td th:text="${pacientes.plano}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

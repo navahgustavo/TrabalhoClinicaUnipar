@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Médicos</title>
+</head>
+<body>
+<h1>Adicionar Novo Médico</h1>
+<form method="post" th:action="@{/medicos/save}">
+    <label>Nome: <input type="text" name="nome" /></label><br>
+    <label>Especialidade: <input type="text" name="especialidade" /></label><br>
+    <button type="submit">Salvar</button>
+</form>
+<h1>Listar Médicos</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Especialidade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="medicos : ${medicos}">
+        <td th:text="${medicos.id}"></td>
+        <td th:text="${medicos.nome}"></td>
+        <td th:text="${medicos.especialidade}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

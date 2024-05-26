@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Atendimento</title>
+</head>
+<body>
+<h1>Adicionar Novo Atendimento</h1>
+<form method="post" th:action="@{/pacientes/save}">
+    <label>Data: <input type="datetime-local" name="dataHora" /></label><br>
+    <label>Anamnese: <input type="checkbox" name="anamnese"/></label><br>
+    <label>Medico: <select id="idMedico"></select></label><br>
+    <label>Paciente: <select id="idPaciente"></select></label><br>
+    <button type="submit">Salvar</button>
+</form>
+<h1>Listar Atendimentos</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Data</th>
+        <th>Anamnese</th>
+        <th>Medico</th>
+        <th>Paciente</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="atendimentos : ${atendimentos}">
+        <td th:text="${atendimentos.id}"></td>
+        <td th:text="${atendimentos.dataHora}"></td>
+        <td th:text="${atendimentos.anamnese}"></td>
+        <td th:text="${atendimentos.idMedico.getNome()}"></td>
+        <td th:text="${atendimentos.idPaciente.getNome()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('api/medicos').then(response => response.json()).then(data => {
+            const select = document.getElementById('idMedico');
+            data.forEach(medico => {
+                const option = document.createElement('medico');
+                option.value = medico.id;
+                option.text = medico.nome;
+                select.appendChild(option);
+            });
+        })
+            .catch(error => console.error('Error fetching items:', error));
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('api/pacientes').then(response => response.json()).then(data => {
+            const select = document.getElementById('idPaciente');
+            data.forEach(paciente => {
+                const option = document.createElement('paciente');
+                option.value = paciente.id;
+                option.text = paciente.nome;
+                select.appendChild(option);
+            });
+        })
+            .catch(error => console.error('Error fetching items:', error));
+    });
+</script>
+
+</body>
+</html>
